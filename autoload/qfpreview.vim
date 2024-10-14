@@ -53,15 +53,7 @@ def Error(msg: string)
 enddef
 
 def Display2byte(str: string, virtcol: number): number
-    const ts_old: number = &tabstop
-    &tabstop = 8
-    var col: number
-    try
-        col = match(str, $'\%{virtcol}v') + 1
-    finally
-        &tabstop = ts_old
-    endtry
-    return col
+    return match(str, $'\%{virtcol}v') + 1
 enddef
 
 def Cycle(winid: number, step: number)
@@ -243,7 +235,7 @@ export def Open(idx: number): number
         if qf_item.vcol == 1
             col = Display2byte(lines[0], qf_item.col)
             if qf_item.end_col > 0
-                end_col = Display2byte(lines[-1], qf_item.end_col)
+                end_col = Display2byte(lines[-1], qf_item.end_col + 1)
             endif
         endif
 
